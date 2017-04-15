@@ -3,7 +3,7 @@
   //hostname = '172.20.10.8';
   //hostname=location.host;
   //hostname='192.168.0.100';
-  hostname = '192.168.15.17';
+  hostname = '192.168.15.13:88';
   //hostname = '192.168.1.66';
    //hostname='espruino.local';
   
