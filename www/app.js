@@ -1,12 +1,3 @@
-//(function () {
-  //hostname='espruino';
-  //hostname = '172.20.10.8';
-  //hostname=location.host;
-  //hostname='192.168.0.100';
-  hostname = '192.168.15.13:88';
-  //hostname = '192.168.1.66';
-   //hostname='espruino.local';
-  
 var ws,
 count = 1;
 var model = {
@@ -52,7 +43,7 @@ app.on('activate', function (event) {
 
 //setTimeout(function () {
 
-  ws = new WebSocket("ws://" + hostname + "/my_websocket", "protocolOne");
+  ws = new WebSocket("ws://" + location.host + ":88/my_websocket", "protocolOne");
   ws.jsend = function (o) {
     this.send(JSON.stringify(o));
   };
@@ -81,7 +72,3 @@ app.on('activate', function (event) {
     });
 
   };
- 
-//}, 1000);
-
-//} ());
