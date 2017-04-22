@@ -1,0 +1,53 @@
+
+
+<html>
+<head>
+<title>Uploader</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<form action="" method="post">
+    <input type="file" name="user_file" />
+    <button type="submit">Submit</button>
+</form>
+<script>
+var ajaxFileUpload = function (filename,data) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", "http://"+ location.host + "/www/"+filename, true);
+	//debugger;
+	//xhr.setRequestHeader('Content-Length', data.length);
+    xhr.addEventListener("load", function (e) {
+        // file upload is complete
+        console.log(xhr.responseText);
+		alert(xhr.responseText);
+    });
+    //xhr.send(data);
+ xhr.send(data);
+};
+var form = document.querySelector("form");
+//debugger;
+form.addEventListener("submit", function (e) {
+//debugger;
+var input = document.querySelector('input[type="file"]');
+var fdata = new FormData();
+var file;
+    file = input.files[0];
+    //fdata.append(file.name, file);
+//var file = $('#load-file')[0].files[0];
+//debugger;
+  var fileReader = new FileReader();
+  fileReader.onloadend = function (e) {
+    var arrayBuffer = e.target.result;
+    var fileType = $('#file-type').val();
+  //debugger;
+  ajaxFileUpload(file.name,arrayBuffer);
+  };
+  fileReader.readAsArrayBuffer(file);
+    // Prevents the standard submit event
+    e.preventDefault();
+    return false;
+}, false);
+</script>
+</html>
