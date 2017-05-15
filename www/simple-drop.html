@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+
+<title>Dropzone simple example</title>
+
+<script src="dropzone.js"></script>
+<link rel="stylesheet" href="dropzone.css">
+
+
+<p>
+  File upload
+</p>
+
+<!-- Change /upload-target to your upload address -->
+<form id="myAwesomeDropzone" action="/www/test.txt" method="put" class="dropzone" enctype="text/plain"></form>
+
+<script>
+
+Dropzone.options.myAwesomeDropzone = {
+  paramName: "file", // The name that will be used to transfer the file
+  maxFilesize: 2, // MB
+  //parallelUploads=1,
+  method: "put",
+  accept: function(file, done) {
+	alert(file.name);
+	console.log(file);
+    console.log(this);
+	//debugger;
+    if (file.name == "xapp.js") {
+      done("Naha, you don't.");
+    }
+    else { done(); }
+  }
+};
+
+
+
+var ajaxFileUpload = function (filename,data) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", "http://"+ location.host + "/www/"+filename, true);
+	//debugger;
+	//xhr.setRequestHeader('Content-Length', data.length);
+    xhr.addEventListener("load", function (e) {
+        // file upload is complete
+        console.log(xhr.responseText);
+		alert(xhr.responseText);
+    });
+    //xhr.send(data);
+ xhr.send(data);
+};
+var form = document.querySelector("form");
+//debugger;
+form.addEventListener("submit", function (e) {
+//debugger;
+var input = document.querySelector('input[type="file"]');
+var fdata = new FormData();
+var file;
+    file = input.files[0];
+    //fdata.append(file.name, file);
+//var file = $('#load-file')[0].files[0];
+//debugger;
+  var fileReader = new FileReader();
+  fileReader.onloadend = function (e) {
+    var arrayBuffer = e.target.result;
+    //var fileType = $('#file-type').val();
+  //debugger;
+  ajaxFileUpload(file.name,arrayBuffer);
+  };
+  fileReader.readAsArrayBuffer(file);
+    // Prevents the standard submit event
+    e.preventDefault();
+    return false;
+}, false);
+</script>
+
